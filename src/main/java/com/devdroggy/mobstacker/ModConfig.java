@@ -6,6 +6,8 @@ public class ModConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;
 
+    // เพิ่มตัวแปรนี้เข้าไปคู่กับ ENABLE_ITEM_STACKING
+    public static final ForgeConfigSpec.BooleanValue ENABLE_MOB_STACKING;
     public static final ForgeConfigSpec.BooleanValue ENABLE_ITEM_STACKING;
 
     // --- Configuration Variables ---
@@ -19,6 +21,10 @@ public class ModConfig {
 
     static {
         BUILDER.push("General Settings");
+
+        // เพิ่มโค้ดนี้เข้าไปในบล็อกการสร้าง Config
+        ENABLE_MOB_STACKING = BUILDER.comment("Set to false to completely disable the Mob Stacking feature.")
+                .define("enableMobStacking", true);
 
         ENABLE_ITEM_STACKING = BUILDER
                 .comment("Set to false to completely disable the Item Stacking feature.")
