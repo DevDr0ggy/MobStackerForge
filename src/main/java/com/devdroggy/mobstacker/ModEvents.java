@@ -37,6 +37,8 @@ public class ModEvents {
     // ==================================================
     @SubscribeEvent
     public void onLivingTick(LivingEvent.LivingTickEvent event) {
+        if (!ModConfig.ENABLE_MOB_STACKING.get()) return;
+
         LivingEntity entity = event.getEntity();
 
         if (entity.level().isClientSide || CHECK_INTERVAL <= 0 || entity.tickCount % CHECK_INTERVAL != 0) return;
