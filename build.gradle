@@ -164,6 +164,9 @@ dependencies {
 
     // Load Framework (MrCrayfish's Library) required for the mods above
     runtimeOnly fg.deobf("curse.maven:framework-549225:7573740")
+
+    // Load Jade (Snownee's Library)
+    runtimeOnly fg.deobf("curse.maven:jade-324717:6855440")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
