@@ -20,7 +20,7 @@ public class ModConfig {
     static {
         BUILDER.push("General Settings");
 
-        ENABLE_ITEM_STACKING = builder
+        ENABLE_ITEM_STACKING = BUILDER
                 .comment("Set to false to completely disable the Item Stacking feature.")
                 .comment("Useful for preventing duplication bugs with mods like Create.")
                 .define("enableItemStacking", true);
