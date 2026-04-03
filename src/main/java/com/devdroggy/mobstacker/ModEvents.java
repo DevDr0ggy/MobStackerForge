@@ -271,6 +271,15 @@ public class ModEvents {
         if (!currentItem.isAlive()) return;
 
         ItemStack stack = currentItem.getItem();
+        int currentCount = stack.getCount();
+        CompoundTag data = currentItem.getPersistentData();
+
+        int lastCount = data.contains("LastItemCount") ? data.getInt("LastItemCount") : -1;
+        if (currentCount != lastCount) {
+            updateItemName(currentItem, currentCount);
+            data.putInt("LastItemCount", currentCount);
+        }
+
         double radius = ModConfig.ITEM_RADIUS.get();
 
         List<ItemEntity> neighbors = level.getEntitiesOfClass(
@@ -286,7 +295,10 @@ public class ModEvents {
                 int totalCount = stack.getCount() + neighborStack.getCount();
                 stack.setCount(totalCount);
                 neighbor.discard();
-                updateItemName(currentItem, stack.getCount());
+
+                // อัปเดต Nametag และความจำให้เป็นปัจจุบันทันทีหลังรวมร่าง
+                updateItemName(currentItem, totalCount);
+                data.putInt("LastItemCount", totalCount);
 
                 level.sendParticles(ParticleTypes.INSTANT_EFFECT,
                         currentItem.getX(), currentItem.getY() + 0.5, currentItem.getZ(),
@@ -317,6 +329,9 @@ public class ModEvents {
             }
             itemEntity.setCustomName(newName);
             itemEntity.setCustomNameVisible(true);
+        } else {
+            itemEntity.setCustomName(null);
+            itemEntity.setCustomNameVisible(false);
         }
     }
 
